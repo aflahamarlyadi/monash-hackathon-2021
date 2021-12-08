@@ -10,7 +10,6 @@ def group_file(file_list):
     for key, group in itertools.groupby(file_list, lambda file: file.split("_")[0]):
         lst = list(group)
         res.append((key, lst))
-    print(res)
 
     return res
 
@@ -30,11 +29,9 @@ def run():
 
                 if os.path.exists(path + "/" + keyword):
                     shutil.move(path + "/" + file, path + "/" + keyword + "/" + file)
-                    print("file moved")
 
                 else:
                     os.makedirs(path + "/" + keyword)
-                    print("dir created")
                     shutil.move(path + "/" + file, path + "/" + keyword + "/" + file)
 
 
