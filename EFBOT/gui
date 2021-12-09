@@ -1,0 +1,43 @@
+from tkinter import *
+import fileorganizer
+
+window = Tk()
+window.geometry("480x270")
+window.title("EFBOT")
+
+icon = PhotoImage(file=r'pepehands.png')
+window.iconphoto(True,icon)
+
+source_input = StringVar()
+destination_input = StringVar()
+is_student_mode = BooleanVar()
+
+def to_raw(string):
+    return fr"{string}"
+
+def run():
+    student_mode = is_student_mode.get()
+    source = to_raw(source_input.get())
+    destination = to_raw(destination_input.get())
+    if student_mode:
+        fileorganizer.move_files(source, destination, student_mode)
+    else:
+        fileorganizer.move_files(source, destination, student_mode)
+
+source_label = Label(window, text="Source directory path:")
+source_label.place(x=10,y=10)
+destination_label = Label(window, text="Destination directory path:")
+destination_label.place(x=10,y=40)
+
+source_entry = Entry(window, width=50, textvariable=source_input)
+source_entry.place(x=160,y=10)
+destination_entry = Entry(window, width=50, textvariable=destination_input)
+destination_entry.place(x=160,y=40)
+
+student_mode_check = Checkbutton(window, text="Enable student mode", variable=is_student_mode)
+student_mode_check.place(x=10,y=70)
+
+run_button = Button(window, text="Run", width=10, command=run)
+run_button.place(x=385,y=70)
+
+window.mainloop()
