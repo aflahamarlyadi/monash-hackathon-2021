@@ -20,12 +20,10 @@ def user_input():
     if student_mode:
         unit_label.place(x=10, y=100)
         unit_entry.place(x=160, y=100)
-        run_button["state"] = DISABLED
 
     else:
         unit_label.destroy()
         unit_entry.destroy()
-        run_button["state"] = NORMAL
 
 def to_raw(string):
     return fr"{string}"
