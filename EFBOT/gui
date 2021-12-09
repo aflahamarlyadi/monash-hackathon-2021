@@ -5,12 +5,27 @@ window = Tk()
 window.geometry("480x270")
 window.title("EFBOT")
 
-icon = PhotoImage(file=r'pepehands.png')
-window.iconphoto(True,icon)
+# icon = PhotoImage(file=r'pepehands.png')
+# window.iconphoto(True,icon)
 
 source_input = StringVar()
 destination_input = StringVar()
 is_student_mode = BooleanVar()
+unit_input = StringVar()
+
+def user_input():
+    student_mode = is_student_mode.get()
+    unit_label = Label(window, text="Unit name:")
+    unit_entry = Entry(window, width=50, textvariable=unit_input)
+    if student_mode:
+        unit_label.place(x=10, y=100)
+        unit_entry.place(x=160, y=100)
+        run_button["state"] = DISABLED
+
+    else:
+        unit_label.destroy()
+        unit_entry.destroy()
+        run_button["state"] = NORMAL
 
 def to_raw(string):
     return fr"{string}"
@@ -34,7 +49,7 @@ source_entry.place(x=160,y=10)
 destination_entry = Entry(window, width=50, textvariable=destination_input)
 destination_entry.place(x=160,y=40)
 
-student_mode_check = Checkbutton(window, text="Enable student mode", variable=is_student_mode)
+student_mode_check = Checkbutton(window, text="Enable student mode", variable=is_student_mode, command=user_input)
 student_mode_check.place(x=10,y=70)
 
 run_button = Button(window, text="Run", width=10, command=run)
