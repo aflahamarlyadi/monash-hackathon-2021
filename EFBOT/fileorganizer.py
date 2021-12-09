@@ -1,7 +1,6 @@
 # importing os and shutil module  
 import os, shutil, time
 from datetime import datetime
-from tkinter import *
 
 
 
@@ -46,7 +45,7 @@ def creation_date(file):
 
 
 
-def move_files(student_mode=True):
+def general_user_mode(source, destination):
     """
     Moves the files from the source directory to a desired destination directory
 
@@ -62,61 +61,56 @@ def move_files(student_mode=True):
 
         if the file type is a mp4 then move the file to the 'Videos' directory
     """
-    source = r"C:\Users\aflah\Hackathon\Downloads"
-    destination = r"C:\Users\aflah\Hackathon"
 
     files = os.listdir(source)
 
-    if student_mode:
-        units = units_input()
+    for file in files:
+        file_path = os.path.join(source, file)
 
-        for file in files:
-            has_been_moved = False
-            file_path = os.path.join(source, file)
-            destination_path = os.path.join(destination, "University")
-            
-            if file_path.endswith('.pdf') or file_path.endswith('.docx'):
-                for unit in units:
-                    if unit.upper() in file.upper():
-                        check_directory(os.path.join(destination_path, unit))
-                        shutil.move(file_path, os.path.join(destination_path, unit))
-                        print(f"{file} has successfully been moved to {os.path.join(destination_path, unit)}")
-                        has_been_moved = True
+        if file_path.endswith('.pdf') or file_path.endswith('.docx'):
+            cr_date = creation_date(file_path)
+            check_directory(os.path.join(destination, 'Documents', cr_date))
+            shutil.move(file_path, os.path.join(destination, 'Documents', cr_date))
+            print(f"{file} has successfully been moved to {os.path.join(destination, 'Documents', cr_date)}")
 
-                if not has_been_moved:
-                    print(f"{file} has not been moved")
+        elif file_path.endswith('.jpg') or file_path.endswith('.png'):
+            cr_date = creation_date(file_path)
+            check_directory(os.path.join(destination, 'Pictures', cr_date))
+            shutil.move(file_path, os.path.join(destination, 'Pictures', cr_date))
+            print(f"{file} has successfully been moved to {os.path.join(destination, 'Pictures', cr_date)}")
 
-    else:
-        for file in files:
-            file_path = os.path.join(source, file)
+        elif file_path.endswith('.mp3'):
+            cr_date = creation_date(file_path)
+            check_directory(os.path.join(destination, 'Music', cr_date))
+            shutil.move(file_path, os.path.join(destination, 'Music', cr_date))
+            print(f"{file} has successfully been moved to {os.path.join(destination, 'Music', cr_date)}")
 
-            if file_path.endswith('.pdf') or file_path.endswith('.docx'):
-                cr_date = creation_date(file_path)
-                check_directory(os.path.join(destination, 'Documents', cr_date))
-                shutil.move(file_path, os.path.join(destination, 'Documents', cr_date))
-                print(f"{file} has successfully been moved to {os.path.join(destination, 'Documents', cr_date)}")
-            
-            elif file_path.endswith('.jpg') or file_path.endswith('.png'):
-                cr_date = creation_date(file_path)
-                check_directory(os.path.join(destination, 'Pictures', cr_date))
-                shutil.move(file_path, os.path.join(destination, 'Pictures', cr_date))
-                print(f"{file} has successfully been moved to {os.path.join(destination, 'Pictures', cr_date)}")
+        elif file_path.endswith('.mp4'):
+            cr_date = creation_date(file_path)
+            check_directory(os.path.join(destination, 'Videos', cr_date))
+            shutil.move(file_path, os.path.join(destination, 'Videos', cr_date))
+            print(f"{file} has successfully been moved to {os.path.join(destination, 'Videos', cr_date)}")
 
-            elif file_path.endswith('.mp3'):
-                cr_date = creation_date(file_path)
-                check_directory(os.path.join(destination, 'Music', cr_date))
-                shutil.move(file_path, os.path.join(destination, 'Music', cr_date))
-                print(f"{file} has successfully been moved to {os.path.join(destination, 'Music', cr_date)}")
+        else:
+            print(f"{file} has not been moved")
 
-            elif file_path.endswith('.mp4'):
-                cr_date = creation_date(file_path)
-                check_directory(os.path.join(destination, 'Videos', cr_date))
-                shutil.move(file_path, os.path.join(destination, 'Videos', cr_date))
-                print(f"{file} has successfully been moved to {os.path.join(destination, 'Videos', cr_date)}")
+def student_mode(source, destination):
+    files = os.listdir(source)
 
-            else:
+    units = units_input()
+
+    for file in files:
+        has_been_moved = False
+        file_path = os.path.join(source, file)
+        destination_path = os.path.join(destination, "University")
+        
+        if file_path.endswith('.pdf') or file_path.endswith('.docx'):
+            for unit in units:
+                if unit.upper() in file.upper():
+                    check_directory(os.path.join(destination_path, unit))
+                    shutil.move(file_path, os.path.join(destination_path, unit))
+                    print(f"{file} has successfully been moved to {os.path.join(destination_path, unit)}")
+                    has_been_moved = True
+
+            if not has_been_moved:
                 print(f"{file} has not been moved")
-
-
-
-move_files()
