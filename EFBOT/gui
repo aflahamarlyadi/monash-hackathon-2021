@@ -20,9 +20,9 @@ def run():
     source = to_raw(source_input.get())
     destination = to_raw(destination_input.get())
     if student_mode:
-        fileorganizer.move_files(source, destination, student_mode)
+        fileorganizer.student_mode(source, destination)
     else:
-        fileorganizer.move_files(source, destination, student_mode)
+        fileorganizer.general_user_mode(source, destination)
 
 source_label = Label(window, text="Source directory path:")
 source_label.place(x=10,y=10)
