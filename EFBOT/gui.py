@@ -3,13 +3,14 @@ from pathlib import Path
 import time
 import fileorganizer
 
+
 window = Tk()
 window.geometry("480x200")
 window.resizable(width=False, height=False)
 window.title("EFBOT")
 
-# icon = PhotoImage(file=r'icon.png')
-# window.iconphoto(True,icon)
+icon = PhotoImage(file=r'icon.png')
+window.iconphoto(True,icon)
 
 source_input = StringVar()
 destination_input = StringVar()
@@ -26,6 +27,8 @@ def run():
         destination = destination_input.get()
     else:
         destination = Path.home() / 'Hackathon'
+
+    fileorganizer.remove_duplicates(source)
 
     if keyword_input.get():
         keywords = keyword_input.get().split(',')
