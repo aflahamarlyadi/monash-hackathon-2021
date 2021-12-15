@@ -9,7 +9,7 @@ window.geometry("600x500")
 window.resizable(width=False, height=False)
 window.title("EFBOT")
 
-icon = PhotoImage(file=r"icon.png")
+icon = PhotoImage(file=r"logo.png")
 window.iconphoto(True,icon)
 
 # function
@@ -100,7 +100,7 @@ contact_label.bind("<Button-1>", contact)
 contact_label.place(x=110, y=10)
 
 # image
-image = Image.open(r"icon.png")
+image = Image.open(r"logo.png")
 resized_image = image.resize((200,200))
 new_image = ImageTk.PhotoImage(resized_image)
 image_label = Label(window, image=new_image)
