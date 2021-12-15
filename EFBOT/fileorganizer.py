@@ -16,10 +16,12 @@ def add_cdate_to_path(child, path: Path):
 
 def remove_duplicates(source):
     """
-    Helper function that check for duplicates in a directory
+    Helper function that remove duplicates in a directory
     """
     source_path = Path(source)
     files = os.listdir(source_path)
+    history = ""
+    delete_count = 0
 
     duplicates = []
 
@@ -43,6 +45,10 @@ def remove_duplicates(source):
     for class_ in duplicates:
         for file in class_[:-1]:
             os.remove(source_path / file)
+            delete_count += 1
+            history += f'Duplicate of {file} found\n'
+    
+    return history, delete_count
 
 
 def organize_by_type(source, destination):
@@ -56,21 +62,25 @@ def organize_by_type(source, destination):
     source_path = Path(source)
     destination_path = Path(destination)
     destination_root = Path(destination)
-    message = ""
+    history = ""
+    moved_files_count = 0
+    deleted_files_count = 0
 
     for child in source_path.iterdir():
         if child.is_file() and child.suffix.lower() in extension_paths:
             destination_path = destination_root.joinpath(extension_paths[child.suffix.lower()])
             destination_path = add_cdate_to_path(child, path=destination_path)
             if os.path.exists(destination_path.joinpath(child.name)):
-                message += f'Duplicate of {child.name} found in {destination_path}\n'
                 os.remove(child)
+                deleted_files_count += 1
+                history += f'Duplicate of {child.name} found in {destination_path}\n'
             else:
                 destination_path.mkdir(parents=True, exist_ok=True)
-                shutil.move(src=child, dst=destination_path)
-                message += f'{child.name} has successfully been moved to {destination_path}\n'
+                shutil.move(src=str(child), dst=str(destination_path))
+                moved_files_count += 1
+                history += f'{child.name} has successfully been moved to {destination_path}\n'
 
-    return message
+    return history, moved_files_count, deleted_files_count
 
 
 def organize_by_keyword(source, destination, keywords):
@@ -82,7 +92,9 @@ def organize_by_keyword(source, destination, keywords):
     destination_path = Path(destination)
     destination_root = Path(destination)
     organized_files = set()
-    message = ""
+    history = ""
+    moved_files_count = 0
+    deleted_files_count = 0
 
     for child in source_path.iterdir():
         if child.is_file():
@@ -90,12 +102,14 @@ def organize_by_keyword(source, destination, keywords):
                 if keyword.upper() in child.name.upper():
                     destination_path = destination_root.joinpath(keyword)
                     destination_path.mkdir(parents=True, exist_ok=True)
-                    shutil.copy(src=child, dst=destination_path)
+                    shutil.copy(src=str(child), dst=str(destination_path))
+                    moved_files_count += 1
+                    history += f'{child.name} has successfully been moved to {destination_path}\n'
                     organized_files.add(child)
-                    message += f'{child.name} has successfully been moved to {destination_path}\n'
     
     for file in organized_files:
         if os.path.exists(file):
             os.remove(file)
+            deleted_files_count += 1
 
-    return message
+    return history, moved_files_count, deleted_files_count
