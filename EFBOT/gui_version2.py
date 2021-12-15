@@ -9,13 +9,8 @@ window.geometry("600x550")
 window.resizable(width=False, height=False)
 window.title("EFBOT")
 
-<<<<<<< Updated upstream
 icon = PhotoImage(file=r"logo.png")
 window.iconphoto(True,icon)
-=======
-# icon = PhotoImage(file=r"icon.png")
-# window.iconphoto(True,icon)
->>>>>>> Stashed changes
 
 # function
 def display(title="MessageBox", message="None"):
@@ -108,19 +103,11 @@ contact_label.bind("<Button-1>", contact)
 contact_label.place(x=110, y=10)
 
 # image
-<<<<<<< Updated upstream
 image = Image.open(r"logo.png")
 resized_image = image.resize((200,200))
 new_image = ImageTk.PhotoImage(resized_image)
 image_label = Label(window, image=new_image)
 image_label.place(x=200, y=40)
-=======
-# image = Image.open(r"icon.png")
-# resized_image = image.resize((200,200))
-# new_image = ImageTk.PhotoImage(resized_image)
-# image_label = Label(window, image=new_image)
-# image_label.place(x=200, y=40)
->>>>>>> Stashed changes
 
 # entry
 source_input = StringVar()
