@@ -5,12 +5,17 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 
 window = Tk()
-window.geometry("600x500")
+window.geometry("600x550")
 window.resizable(width=False, height=False)
 window.title("EFBOT")
 
+<<<<<<< Updated upstream
 icon = PhotoImage(file=r"logo.png")
 window.iconphoto(True,icon)
+=======
+# icon = PhotoImage(file=r"icon.png")
+# window.iconphoto(True,icon)
+>>>>>>> Stashed changes
 
 # function
 def display(title="MessageBox", message="None"):
@@ -50,9 +55,9 @@ def reset_check_button():
 
 def click_check_button():
     if check_button_input.get():
-        keyword_label.place(x=10,y=375)
-        keyword_entry.place(x=160,y=375)
-        keyword_note.place(x=160, y=395)
+        keyword_label.place(x=10,y=400)
+        keyword_entry.place(x=160,y=400)
+        keyword_note.place(x=160, y=420)
     else:
         reset_check_button()
     
@@ -83,8 +88,11 @@ def run():
         return_msg = fileorganizer.organize_by_keyword(source, destination, keywords)
         display("Output", return_msg)
     else:
-        return_msg = fileorganizer.organize_by_type(source, destination)
-        display("Output", return_msg)
+        if not check_button_input.get():
+            return_msg = fileorganizer.organize_by_type(source, destination)
+            display("Output", return_msg)
+        else:
+            messagebox.showwarning("Warning", "Please enter a keyword")
 
 # intro
 home_label = Label(window, text="Home")
@@ -100,11 +108,19 @@ contact_label.bind("<Button-1>", contact)
 contact_label.place(x=110, y=10)
 
 # image
+<<<<<<< Updated upstream
 image = Image.open(r"logo.png")
 resized_image = image.resize((200,200))
 new_image = ImageTk.PhotoImage(resized_image)
 image_label = Label(window, image=new_image)
 image_label.place(x=200, y=40)
+=======
+# image = Image.open(r"icon.png")
+# resized_image = image.resize((200,200))
+# new_image = ImageTk.PhotoImage(resized_image)
+# image_label = Label(window, image=new_image)
+# image_label.place(x=200, y=40)
+>>>>>>> Stashed changes
 
 # entry
 source_input = StringVar()
@@ -128,18 +144,20 @@ keyword_note = Label(window, text="eg. FIT1045,MAT1830,Lecture,Hackathon", fg="r
 check_button_input = BooleanVar()
 check_button = Checkbutton(window, text="Select manual mode", variable=check_button_input, command=click_check_button)
 check_button.place(x=10, y=345)
+check_button_note = Label(window, text="NOTE: Select this mode if you want to group the files by your own preference keyword.", fg="red")
+check_button_note.place(x=10, y=370)
 
 view_button = Button(window, text="View Report", width=10, command=report)
-view_button.place(x=10, y=450)
+view_button.place(x=10, y=500)
 
 reset_button = Button(window, text="Reset", width=10, command=clear_input)
-reset_button.place(x=100, y=450)
+reset_button.place(x=100, y=500)
 
 run_button = Button(window, text="Run", width=10, command=run)
-run_button.place(x=195,y=450)
+run_button.place(x=195,y=500)
 
 exit_button = Button(window, text="Exit", width=10, command=window.quit)
-exit_button.place(x=500, y=450)
+exit_button.place(x=500, y=500)
 
 
 window.mainloop()
