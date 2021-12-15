@@ -22,9 +22,9 @@ def home(event=None):
 
 def about(event=None):
     message = """
-    EFBot is a file organizing system which developed by 
-    a group of passionate students coming from 
-    different background in Monash University Malaysia.
+    EFBot is a file organizing system developed by 
+    a group of passionate students from 
+    Monash University Malaysia.
     """
     display("About", message)
 
