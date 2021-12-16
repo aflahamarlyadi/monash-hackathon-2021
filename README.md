@@ -45,3 +45,7 @@
     (eg. option to disable creating the date folder, option to disable deleting files automatically, option to restore a deleted file, etc.)
     
     5. Furthur beautify the gui
+    
+## NOTES:
+
+    1. Currently unable to run the the program as an executable file (.exe) as Windows detected it as a virus. :(
