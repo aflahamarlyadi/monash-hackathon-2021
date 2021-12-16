@@ -33,14 +33,13 @@
 ## FUTURE IMPLEMENTATIONS:
 
     1. Publish a website to install the program
-
-    2. Provide user recommendations on which files to delete (duplicate files, files that haven't been opened for a long period of time)
     
-    3. Add a Browse button for the source and destination folder entry
+    2. Add a Browse button for the source and destination folder entry
     
-    4. Add an Analysis menu to show total files moved and deleted (total storage cleared), as data collected will be useful
+    3. Add an Analysis menu to show total files moved and deleted (total storage cleared), as data collected will be useful and
+    notify the user of files that haven't been opened for a long period of time and large files.
     
-    5. Add more settings in the Settings menu to make the program more dynamic (eg. option to disable creating the date folder, option to disable deleting files automatically,
-    option to restore a deleted file, etc.)
+    4. Add more settings in the Settings menu to make the program more dynamic 
+    (eg. option to disable creating the date folder, option to disable deleting files automatically, option to restore a deleted file, etc.)
     
-    6. Furthur beautify the gui
+    5. Furthur beautify the gui
