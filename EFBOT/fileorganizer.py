@@ -51,7 +51,7 @@ def remove_duplicates(source):
     return history, delete_count
 
 
-def organize_by_type(source, destination):
+def organize_by_type(source, destination, add_date):
     """
     Main function that moves the files from the source directory to a desired destination directory based on file type
     For loop only check for files and not directories and if the file extension is supported
@@ -69,7 +69,8 @@ def organize_by_type(source, destination):
     for child in source_path.iterdir():
         if child.is_file() and child.suffix.lower() in extension_paths:
             destination_path = destination_root.joinpath(extension_paths[child.suffix.lower()])
-            destination_path = add_cdate_to_path(child, path=destination_path)
+            if add_date:
+                destination_path = add_cdate_to_path(child, path=destination_path)
             if os.path.exists(destination_path.joinpath(child.name)):
                 os.remove(child)
                 deleted_files_count += 1
