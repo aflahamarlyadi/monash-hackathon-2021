@@ -11,6 +11,11 @@ DARK_GRAY = "#1e1e1e"
 BLUE = "#087ccc"
 LIGHT_BLUE = "#2189d1"
 
+DEFAULT_BG = "SystemButtonFace"
+DEFAULT_FG = "SystemWindowText"
+DEFAULT_SC = "SystemWindow"
+GRAY = "light grey"
+
 DEFAULT_FONT_STYLE = ("Calibri", 13)
 LARGE_FONT_STYLE = ("Calibri", 14, "bold")
 SMALL_FONT_STYLE = ("Calibri", 10)
@@ -65,23 +70,92 @@ def clear_input():
     keyword_entry.delete(0, END)
     reset_check_button()
 
+def dark_theme():
+    side_menu.config(bg=LIGHT_GRAY)
+    home_frame.config(bg=DARK_GRAY)
+    history_frame.config(bg=DARK_GRAY)
+    settings_frame.config(bg=DARK_GRAY)
+    about_frame.config(bg=DARK_GRAY)
+
+    home_button.config(highlightcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
+    history_button.config(activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
+    settings_button.config(activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
+    about_button.config(activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
+
+    source_label.config(bg=DARK_GRAY, fg=WHITE)
+    destination_label.config(bg=DARK_GRAY, fg=WHITE)
+    check_button.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
+    keyword_label.config(bg=DARK_GRAY, fg=WHITE)
+    keyword_note.config(bg=DARK_GRAY, fg=WHITE)
+    reset_button.config(activebackground=LIGHT_BLUE, activeforeground=OFF_WHITE, bg=BLUE, fg=WHITE)
+    run_button.config(activebackground=LIGHT_BLUE, activeforeground=OFF_WHITE, bg=BLUE, fg=WHITE)
+
+    textarea.config(bg=DARK_GRAY, fg=WHITE)
+
+    theme_label.config(bg=DARK_GRAY, fg=WHITE)
+    theme_label.place(x=20,y=20)
+
+    dark_mode.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
+    light_mode.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
+    clear_history_label.config(bg=DARK_GRAY, fg=WHITE)
+    clear_history_button.config(activebackground=LIGHT_BLUE, activeforeground=OFF_WHITE, bg=BLUE, fg=WHITE)
+
+    about_message.config(activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
+
+def light_theme():
+    side_menu.config(bg=GRAY)
+    home_frame.config(bg=DEFAULT_BG)
+    history_frame.config(bg=DEFAULT_BG)
+    settings_frame.config(bg=DEFAULT_BG)
+    about_frame.config(bg=DEFAULT_BG)
+
+    home_button.config(highlightcolor=GRAY, activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
+    history_button.config(activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
+    settings_button.config(activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
+    about_button.config(activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
+
+    source_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    destination_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    check_button.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
+    keyword_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    keyword_note.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    reset_button.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG, borderwidth=2)
+    run_button.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG, borderwidth=2)
+
+    textarea.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+
+    theme_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+
+    dark_mode.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
+    light_mode.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
+    clear_history_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    clear_history_button.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG, borderwidth=2)
+
+    about_message.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
+
 def set_theme():
-    pass
+    if var.get() == 1:
+        dark_theme()
+    else:
+        light_theme()
 
 def clear_history():
     open("history.txt", "w").close()
     textarea.delete("1.0","end")
+    pass
 
 def update_history(update):
     file = open('history.txt', 'a')
     file.write(update)
     file.close()
+    pass
 
 def read_history():
     file = open('history.txt', 'r')
     for line in file:
         textarea.insert(END, line)
     file.close()
+    pass
 
 def run():
     total_deleted_files = 0
@@ -210,6 +284,7 @@ theme_label.place(x=20,y=20)
 var = IntVar()
 dark_mode = Radiobutton(settings_frame, text="Dark mode", selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground = WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE, variable=var, value=1, command=set_theme)
 dark_mode.place(x=30,y=50)
+dark_mode.select()
 
 light_mode = Radiobutton(settings_frame, text="Light mode", selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground = WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE, variable=var, value=2, command=set_theme)
 light_mode.place(x=30,y=80)
