@@ -6,6 +6,8 @@
     
     2. Organize all the files in a folder (Downloads folder by default) by a list of keywords entered by the user.
     
+    3. User-friendly (clear and straightforward with less complicated interaction).
+    
 ## INSTRUCTIONS:
 
     1. For the purpose of testing, create an empty folder in the user folder named "Hackathon" (eg. "C:\Users\username\Hackathon")
