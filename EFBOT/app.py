@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from pathlib import Path
+from PIL import Image, ImageTk
 import fileorganizer
 
 BLACK = "#000000"
@@ -58,9 +59,9 @@ def reset_check_button():
 
 def click_check_button():
     if check_button_input.get():
-        keyword_label.place(x=20,y=100)
-        keyword_entry.place(x=160,y=100)
-        keyword_note.place(x=160, y=130)
+        keyword_label.place(x=20,y=270)
+        keyword_entry.place(x=160,y=270)
+        keyword_note.place(x=160, y=300)
     else:
         reset_check_button()
 
@@ -82,6 +83,7 @@ def dark_theme():
     settings_button.config(activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
     about_button.config(activebackground=DARK_GRAY, activeforeground=OFF_WHITE, bg=LIGHT_GRAY, fg=WHITE)
 
+    image_label.config(bg=DARK_GRAY)
     source_label.config(bg=DARK_GRAY, fg=WHITE)
     destination_label.config(bg=DARK_GRAY, fg=WHITE)
     check_button.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
@@ -114,6 +116,7 @@ def light_theme():
     settings_button.config(activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
     about_button.config(activebackground=DEFAULT_BG, activeforeground=BLACK, bg=GRAY, fg=DEFAULT_FG)
 
+    image_label.config(bg=DEFAULT_BG)
     source_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
     destination_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
     check_button.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
@@ -140,21 +143,21 @@ def set_theme():
         light_theme()
 
 def clear_history():
-    open("history.txt", "w").close()
+    # open("history.txt", "w").close()
     textarea.delete("1.0","end")
     pass
 
 def update_history(update):
-    file = open('history.txt', 'a')
-    file.write(update)
-    file.close()
+    # file = open('history.txt', 'a')
+    # file.write(update)
+    # file.close()
     pass
 
 def read_history():
-    file = open('history.txt', 'r')
-    for line in file:
-        textarea.insert(END, line)
-    file.close()
+    # file = open('history.txt', 'r')
+    # for line in file:
+    #     textarea.insert(END, line)
+    # file.close()
     pass
 
 def run():
@@ -195,8 +198,8 @@ window.geometry("800x450")
 window.resizable(width=False, height=False)
 window.title("EFBot")
 
-icon = PhotoImage(file=r"logo.png")
-window.iconphoto(True,icon)
+# icon = PhotoImage(file=r"logo.png")
+# window.iconphoto(True,icon)
 
 side_menu = Frame(window, bg=LIGHT_GRAY, borderwidth=0)
 side_menu.pack(expand=False, fill=BOTH, side=LEFT, anchor=NW)
@@ -232,17 +235,24 @@ about_button.bind('<Enter>', on_enter)
 about_button.bind('<Leave>', on_leave)
 
 # Home
+image = Image.open(r"C:\Users\Asus\Desktop\mhk21_git\monash-hackathon-2021\EFBOT\logo.png")
+# image = Image.open("logo.png")
+resized_image = image.resize((170, 170))
+new_image = ImageTk.PhotoImage(resized_image)
+image_label = Label(home_frame, image=new_image, bg=DARK_GRAY)
+image_label.place(x=250, y=10)
+
 source_input = StringVar()
 source_label = Label(home_frame, text="Source folder:", bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
-source_label.place(x=20,y=20)
+source_label.place(x=20,y=190)
 source_entry = Entry(home_frame, font=DEFAULT_FONT_STYLE, width=50, textvariable=source_input)
-source_entry.place(x=160,y=20)
+source_entry.place(x=160,y=190)
 
 destination_input = StringVar()
 destination_label = Label(home_frame, text="Destination folder:", bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
-destination_label.place(x=20,y=60)
+destination_label.place(x=20,y=230)
 destination_entry = Entry(home_frame, font=DEFAULT_FONT_STYLE, width=50, textvariable=destination_input)
-destination_entry.place(x=160,y=60)
+destination_entry.place(x=160,y=230)
 
 check_button_input = BooleanVar()
 check_button = Checkbutton(home_frame, text="Organize by keywords", selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground = WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE, variable=check_button_input, command=click_check_button)
