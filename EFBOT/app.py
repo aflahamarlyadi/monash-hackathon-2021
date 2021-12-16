@@ -143,21 +143,21 @@ def set_theme():
         light_theme()
 
 def clear_history():
-    # open("history.txt", "w").close()
+    open("history.txt", "w").close()
     textarea.delete("1.0","end")
     pass
 
 def update_history(update):
-    # file = open('history.txt', 'a')
-    # file.write(update)
-    # file.close()
+    file = open('history.txt', 'a')
+    file.write(update)
+    file.close()
     pass
 
 def read_history():
-    # file = open('history.txt', 'r')
-    # for line in file:
-    #     textarea.insert(END, line)
-    # file.close()
+    file = open('history.txt', 'r')
+    for line in file:
+        textarea.insert(END, line)
+    file.close()
     pass
 
 def run():
@@ -198,8 +198,8 @@ window.geometry("800x450")
 window.resizable(width=False, height=False)
 window.title("EFBot")
 
-# icon = PhotoImage(file=r"logo.png")
-# window.iconphoto(True,icon)
+icon = PhotoImage(file=r"logo.png")
+window.iconphoto(True,icon)
 
 side_menu = Frame(window, bg=LIGHT_GRAY, borderwidth=0)
 side_menu.pack(expand=False, fill=BOTH, side=LEFT, anchor=NW)
@@ -235,8 +235,7 @@ about_button.bind('<Enter>', on_enter)
 about_button.bind('<Leave>', on_leave)
 
 # Home
-image = Image.open(r"C:\Users\Asus\Desktop\mhk21_git\monash-hackathon-2021\EFBOT\logo.png")
-# image = Image.open("logo.png")
+image = Image.open("logo.png")
 resized_image = image.resize((170, 170))
 new_image = ImageTk.PhotoImage(resized_image)
 image_label = Label(home_frame, image=new_image, bg=DARK_GRAY)
