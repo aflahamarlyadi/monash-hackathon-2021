@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from pathlib import Path
-import fileorganizer
+import os, fileorganizer
 
 # Variables
 BLACK = "#000000"
@@ -175,20 +175,32 @@ def run():
     total_moved_files = 0
 
     if source_input.get():
-        source = source_input.get()
+        if os.path.isdir(source_input.get()):
+            source = source_input.get()
+        else:
+            messagebox.showwarning("Warning", "Source entered is not a valid directory")
     else:
         if default_source_input.get():
-            source = default_source_input.get()
+            if os.path.isdir(default_source_input.get()):
+                source = default_source_input.get()
+            else:
+                messagebox.showwarning("Warning", "Default source entered is not a valid directory")
         else:
             source = Path.home() / 'Downloads'
     
     if destination_input.get():
-        destination = destination_input.get()
+        if os.path.isdir(destination_input.get()):
+            destination = destination_input.get()
+        else:
+            messagebox.showwarning("Warning", "Destination entered is not a valid directory")
     else:
         if default_destination_input.get():
-            destination = default_destination_input.get()
+            if os.path.isdir(default_destination_input.get()):
+                destination = default_destination_input.get()
+            else:
+                messagebox.showwarning("Warning", "Destination entered is not a valid directory")
         else:
-            destination = Path.home() / 'Downloads'
+            destination = Path.home()
 
     if check_button_input.get():
         if keyword_entry.get():
@@ -211,7 +223,7 @@ def run():
     else:
         (history, deleted_files) = fileorganizer.remove_duplicates(source)
         total_deleted_files += deleted_files
-        (history, moved_files, deleted_files) = fileorganizer.organize_by_type(source, destination)
+        (history, moved_files, deleted_files) = fileorganizer.organize_by_type(source, destination, check_date_input.get())
         total_deleted_files += deleted_files
         total_moved_files += moved_files
         update_history(history)
@@ -341,6 +353,10 @@ default_destination_label.place(x=40,y=290)
 default_destination_entry = Entry(settings_frame, font=DEFAULT_FONT_STYLE, width=45, textvariable=default_destination_input)
 default_destination_entry.place(x=230,y=290)
 
+check_date_input = BooleanVar()
+check_date = Checkbutton(settings_frame, text="Add dates to path", selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground = WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE, variable=check_date_input)
+check_date.place(x=40, y=330)
+
 # About
 about_message = Label(about_frame, 
     text=
@@ -349,9 +365,9 @@ about_message = Label(about_frame,
     Monash University Malaysia.
 
     For bugs, errors and feedbacks, please contact us:
-    Tan Ye Qian <ytan0240@student.monash.edu>
     Aflah Hanif Amarlyadi <aama0015@student.monash.edu>
     Yap Yong Hong <yyap0025@student.monash.edu>
+    Tan Ye Qian <ytan0240@student.monash.edu>
     """, 
     activebackground=DARK_GRAY, activeforeground = WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE, justify=LEFT)
 about_message.pack(anchor=NW)
