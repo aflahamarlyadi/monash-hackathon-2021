@@ -106,6 +106,9 @@ def dark_theme():
     light_mode.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
     clear_history_label.config(bg=DARK_GRAY, fg=WHITE)
     clear_history_button.config(activebackground=LIGHT_BLUE, activeforeground=OFF_WHITE, bg=BLUE, fg=WHITE)
+    set_default_label.config(bg=DARK_GRAY, fg=WHITE)
+    default_source_label.config(bg=DARK_GRAY, fg=WHITE)
+    default_destination_label.config(bg=DARK_GRAY, fg=WHITE)
 
     about_message.config(activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
 
@@ -137,6 +140,9 @@ def light_theme():
     light_mode.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
     clear_history_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
     clear_history_button.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG, borderwidth=2)
+    set_default_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    default_source_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    default_destination_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
 
     about_message.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
 
@@ -171,12 +177,18 @@ def run():
     if source_input.get():
         source = source_input.get()
     else:
-        source = Path.home() / 'Hackathon' / 'Downloads'
+        if default_source_input.get():
+            source = default_source_input.get()
+        else:
+            source = Path.home() / 'Downloads'
     
     if destination_input.get():
         destination = destination_input.get()
     else:
-        destination = Path.home() / 'Hackathon'
+        if default_destination_input.get():
+            destination = default_destination_input.get()
+        else:
+            destination = Path.home() / 'Downloads'
 
     if check_button_input.get():
         if keyword_entry.get():
@@ -314,6 +326,20 @@ clear_history_label.place(x=20,y=120)
 clear_history_button = Button(settings_frame, text="Clear history", activebackground=LIGHT_BLUE, activeforeground=OFF_WHITE, bg=BLUE, fg=WHITE, font=DEFAULT_FONT_STYLE, width=10, borderwidth=0, command=clear_history)
 clear_history_button.place(x=40,y=160)
 
+set_default_label = Label(settings_frame, text="Set default", bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
+set_default_label.place(x=20,y=210)
+
+default_source_input = StringVar()
+default_source_label = Label(settings_frame, text="Default source folder:", bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
+default_source_label.place(x=40,y=250)
+default_source_entry = Entry(settings_frame, font=DEFAULT_FONT_STYLE, width=45, textvariable=default_source_input)
+default_source_entry.place(x=230,y=250)
+
+default_destination_input = StringVar()
+default_destination_label = Label(settings_frame, text="Default destination folder:", bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
+default_destination_label.place(x=40,y=290)
+default_destination_entry = Entry(settings_frame, font=DEFAULT_FONT_STYLE, width=45, textvariable=default_destination_input)
+default_destination_entry.place(x=230,y=290)
 
 # About
 about_message = Label(about_frame, 
@@ -321,6 +347,7 @@ about_message = Label(about_frame,
     """
     EFBot is a file organizing system developed by a group of passionate students from 
     Monash University Malaysia.
+
     For bugs, errors and feedbacks, please contact us:
     Tan Ye Qian <ytan0240@student.monash.edu>
     Aflah Hanif Amarlyadi <aama0015@student.monash.edu>
