@@ -178,15 +178,13 @@ def run():
     else:
         destination = Path.home() / 'Hackathon'
 
-    (history, deleted_files) = fileorganizer.remove_duplicates(source)
-    total_deleted_files += deleted_files
-    update_history(history)
-
     if check_button_input.get():
         if keyword_entry.get():
             keywords = keyword_input.get().split(',')
             for i, keyword in enumerate(keywords):
                 keywords[i] = keyword.strip()
+            (history, deleted_files) = fileorganizer.remove_duplicates(source)
+            total_deleted_files += deleted_files
             (history, moved_files, deleted_files) = fileorganizer.organize_by_keyword(source, destination, keywords)
             total_deleted_files += deleted_files
             total_moved_files += moved_files
@@ -199,6 +197,8 @@ def run():
             messagebox.showwarning("Warning", "Please enter a keyword")
 
     else:
+        (history, deleted_files) = fileorganizer.remove_duplicates(source)
+        total_deleted_files += deleted_files
         (history, moved_files, deleted_files) = fileorganizer.organize_by_type(source, destination)
         total_deleted_files += deleted_files
         total_moved_files += moved_files
