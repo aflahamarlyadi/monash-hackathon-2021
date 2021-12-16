@@ -109,6 +109,7 @@ def dark_theme():
     set_default_label.config(bg=DARK_GRAY, fg=WHITE)
     default_source_label.config(bg=DARK_GRAY, fg=WHITE)
     default_destination_label.config(bg=DARK_GRAY, fg=WHITE)
+    check_date.config(selectcolor=LIGHT_GRAY, activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE, font=DEFAULT_FONT_STYLE)
 
     about_message.config(activebackground=DARK_GRAY, activeforeground=WHITE, bg=DARK_GRAY, fg=WHITE)
 
@@ -143,6 +144,7 @@ def light_theme():
     set_default_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
     default_source_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
     default_destination_label.config(bg=DEFAULT_BG, fg=DEFAULT_FG)
+    check_date.config(selectcolor=DEFAULT_SC, activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
 
     about_message.config(activebackground=DEFAULT_BG, activeforeground=DEFAULT_FG, bg=DEFAULT_BG, fg=DEFAULT_FG)
 
