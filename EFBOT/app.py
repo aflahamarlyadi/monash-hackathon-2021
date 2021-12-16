@@ -3,6 +3,7 @@ from tkinter import messagebox
 from pathlib import Path
 import fileorganizer
 
+# Variables
 BLACK = "#000000"
 WHITE = "#FFFFFF"
 OFF_WHITE = "#f0f0f0"
@@ -142,10 +143,8 @@ def light_theme():
 def set_theme():
     if var.get() == 1:
         dark_theme()
-
     else:
         light_theme()
-
 
 def clear_history():
     open("history.txt", "w").close()
@@ -183,21 +182,33 @@ def run():
     total_deleted_files += deleted_files
     update_history(history)
 
-    if keyword_input.get():   
-        keywords = keyword_input.get().split(',')
-        for i, keyword in enumerate(keywords):
-            keywords[i] = keyword.strip()
-        (history, moved_files, deleted_files) = fileorganizer.organize_by_keyword(source, destination, keywords)
+    if check_button_input.get():
+        if keyword_entry.get():
+            keywords = keyword_input.get().split(',')
+            for i, keyword in enumerate(keywords):
+                keywords[i] = keyword.strip()
+            (history, moved_files, deleted_files) = fileorganizer.organize_by_keyword(source, destination, keywords)
+            total_deleted_files += deleted_files
+            total_moved_files += moved_files
+            update_history(history)
+
+            message = f'Total number of files moved: {total_moved_files}\nTotal number of files deleted: {total_deleted_files}'
+            messagebox.showinfo("Analytics" , message)
+            read_history()
+        else:
+            messagebox.showwarning("Warning", "Please enter a keyword")
+
     else:
         (history, moved_files, deleted_files) = fileorganizer.organize_by_type(source, destination)
-    total_deleted_files += deleted_files
-    total_moved_files += moved_files
-    update_history(history)
+        total_deleted_files += deleted_files
+        total_moved_files += moved_files
+        update_history(history)
 
-    message = f'Total number of files moved: {total_moved_files}\nTotal number of files deleted: {total_deleted_files}'
-    messagebox.showinfo("Analytics" , message)
-    read_history()
+        message = f'Total number of files moved: {total_moved_files}\nTotal number of files deleted: {total_deleted_files}'
+        messagebox.showinfo("Analytics" , message)
+        read_history()
 
+# Window/Frames
 window = Tk()
 window.geometry("800x450")
 window.resizable(width=False, height=False)
